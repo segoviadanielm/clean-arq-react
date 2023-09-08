@@ -1,19 +1,16 @@
 import { useEffect } from "react";
 import { CardInfo } from "./components";
-import { useAppSelector } from "../../hooks";
-import { getCharacter } from "./services/get-character";
-import { useDispatch } from "react-redux";
-import { bringCharacter } from "../../redux/slices/character.slice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { getCharacterAction } from "../../redux/actions/get-character";
 
 
 export default function Character() {
+    const dispatch = useAppDispatch();
 
-    const dispatch = useDispatch();
     const character = useAppSelector((state) => state.character);
 
     const getCharacterApi = async () => {
-        const result = await getCharacter('character');
-        dispatch(bringCharacter(result));
+        await dispatch(getCharacterAction('character'));
     }
     
     useEffect(() => {
